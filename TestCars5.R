@@ -1,9 +1,10 @@
-setwd("c:/Pluralsight")
+setwd("c:/Pluralsight/RStudio_Test")
 
 data(iris)
 
 head(iris)
 
+library(ff)
 # Read a csv file as ff data frame
 irisff<-read.table.ffdf(
   file = "Iris.csv",
