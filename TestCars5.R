@@ -1,8 +1,10 @@
-setwd("c:/Pluralsight")
-
+setwd("C:\Pluralsight")
 data(iris)
 
 head(iris)
+
+install.packages('ff', dependencies=TRUE, repos='http://cran.rstudio.com/')
+library(ff)
 
 # Read a csv file as ff data frame
 irisff<-read.table.ffdf(
@@ -19,11 +21,13 @@ names(irisff)
 
 irisff[1:5, ]
 
+install.packages('biglm', dependencies=TRUE, repos='http://cran.rstudio.com/')
 
 
 library(biglm)
 
-model<-biglm(
+
+model <- biglm(
   formula = Petal.Width~Petal.Length,
   data = irisff
 )
@@ -62,4 +66,6 @@ predict(
     
   )
 )
+
+
 
