@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 setwd("C:\Pluralsight")
+=======
+setwd("c:/Pluralsight/RStudio_Test")
+
+>>>>>>> 5b35c38caa4867e787ac2d488d19eac6c8a5ad30
 data(iris)
 
 head(iris)
 
+<<<<<<< HEAD
 install.packages('ff', dependencies=TRUE, repos='http://cran.rstudio.com/')
 library(ff)
 
+=======
+library(ff)
+>>>>>>> 5b35c38caa4867e787ac2d488d19eac6c8a5ad30
 # Read a csv file as ff data frame
 irisff<-read.table.ffdf(
   file = "Iris.csv",
