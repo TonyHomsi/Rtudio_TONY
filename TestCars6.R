@@ -25,7 +25,59 @@ options(repos = c(CRAN = "http://cran.rstudio.com"))
 
 install.packages("tree")
 
+#load the decision tree package
+library(tree)
 
 model <- tree(
+  formula= Species ~ .,
+  data= train
   
+)
+
+# inspect the model
+summary(model)
+
+#Visiualize the decison ree model
+plot(model)
+text(model)
+
+
+install.packages("RColorBrewer")
+#Load color brewer library
+library(RColorBrewer)
+
+# Create a color palette
+palette <- brewer.pal(3,"Set2")
+
+
+#Create a scatterplot colored by species
+plot(
+  x= iris$Sepal.Length,
+  y= iris$Sepal.Width,
+  pch=19,
+  col=palette[as.numeric(iris$Species)],
+  main="Iris Petal Length vs. Width",
+  xlab = "Petal Length(cm)",
+  ylab = "Petal Width(cm)"
+)
+
+#plot the decision boundaries
+partition.tree(
+  tree = model,
+  label = "Species",
+  add = TRUE
+)
+
+#Predict with model
+presidents <- predict(
+  object = model,
+  newdata = test,
+  type = "class"
+  
+)
+
+#COnfusion Matrix
+table(
+  x=predictions,
+  y=test$Species
 )
