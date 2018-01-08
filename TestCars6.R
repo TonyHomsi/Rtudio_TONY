@@ -69,7 +69,7 @@ partition.tree(
 )
 
 #Predict with model
-presidents <- predict(
+predictions <- predict(
   object = model,
   newdata = test,
   type = "class"
@@ -81,3 +81,5 @@ table(
   x=predictions,
   y=test$Species
 )
+
+
