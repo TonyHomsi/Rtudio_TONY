@@ -69,15 +69,17 @@ table(
   y = test$Species)
 
 # Load the caret package
-library(caret)
+install.packages("caret")
+ library(caret)
 
+
+install.packages('e1071', dependencies=TRUE)
 # Evaluate the prediction results
 confusionMatrix(
   data = predictions, 
   reference = test$Species)
 
-# Set working directory
-setwd("C:/Pluralsight")
+
 
 # Save the tree model
 save(model, file = "Tree.RData")
