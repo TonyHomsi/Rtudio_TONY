@@ -1,85 +1,87 @@
-setwd("c:/Pluralsight/RStudio_Test")
+# Predicting with Machine Learning
+
+# Load the data
 data(iris)
 
-#set a seed to made randomness reproducable
+# Set a seed to make randomness reproducible
 set.seed(42)
 
-
-#Randomly sample 100 of 150 row indexes
+# Randomly sample 100 of 150 row indexes
 indexes <- sample(
-  x=1:150,
-  size=100
-)
+  x = 1:150, 
+  size = 100)
 
+# Inspect the random indexes
 print(indexes)
 
 # Create a training set from indexes
 train <- iris[indexes, ]
 
-# Create a test set from the remaining indexes
+# Create a test set from remaining indexes
 test <- iris[-indexes, ]
 
-# load the decision tree
-## Very Important to use this link
-options(repos = c(CRAN = "http://cran.rstudio.com"))
-
-install.packages("tree")
-
-#load the decision tree package
+# Load the decision tree package
 library(tree)
 
+# Train a decision tree model
 model <- tree(
-  formula= Species ~ .,
-  data= train
-  
-)
+  formula = Species ~ .,
+  data = train)
 
-# inspect the model
+# Inspect the model
 summary(model)
 
-#Visiualize the decison ree model
+# Visualize the decision tree model
 plot(model)
 text(model)
 
-
-install.packages("RColorBrewer")
-#Load color brewer library
+# Load color brewer library
 library(RColorBrewer)
 
 # Create a color palette
-palette <- brewer.pal(3,"Set2")
+palette <- brewer.pal(3, "Set2")
 
-
-#Create a scatterplot colored by species
+# Create a scatterplot colored by species
 plot(
-  x= iris$Sepal.Length,
-  y= iris$Sepal.Width,
-  pch=19,
-  col=palette[as.numeric(iris$Species)],
-  main="Iris Petal Length vs. Width",
-  xlab = "Petal Length(cm)",
-  ylab = "Petal Width(cm)"
-)
+  x = iris$Petal.Length, 
+  y = iris$Petal.Width,
+  pch = 19,
+  col = palette[as.numeric(iris$Species)],
+  main = "Iris Petal Length vs. Width",
+  xlab = "Petal Length (cm)",
+  ylab = "Petal Width (cm)")
 
-#plot the decision boundaries
+# Plot the decision boundaries
 partition.tree(
   tree = model,
   label = "Species",
-  add = TRUE
-)
+  add = TRUE)
 
-#Predict with model
+# Predict with the model
 predictions <- predict(
   object = model,
   newdata = test,
-  type = "class"
-  
-)
+  type = "class")
 
-#COnfusion Matrix
+# Create a confusion matrix
 table(
-  x=predictions,
-  y=test$Species
-)
+  x = predictions, 
+  y = test$Species)
 
+# Load the caret package
+library(caret)
+
+# Evaluate the prediction results
+confusionMatrix(
+  data = predictions, 
+  reference = test$Species)
+
+# Set working directory
+setwd("C:/Pluralsight")
+
+# Save the tree model
+save(model, file = "Tree.RData")
+
+# Save the training data
+save(train, file = "Train.RData")
 
